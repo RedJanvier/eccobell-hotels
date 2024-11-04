@@ -24,7 +24,7 @@
       <div class="list-container p-4">
         <ul class="list list-home">
           <li v-for="link in links" :key="link.name">
-            <nuxt-link :to="link.href" class="flex items-center w-full gap-4">
+            <nuxt-link :to="link.href" :class="['flex items-center w-full gap-4', {'not-active': link.href === '/'}]">
               <span :class="link.icon"></span>
               <span class="flex-1">{{ link.name }}</span>
               <span class="iconEccobell-arrow-right"></span>
@@ -54,16 +54,19 @@
       name: "In room dining",
       icon: "iconEccobell-food",
       href: "/",
+      active: false,
     },
     {
       name: "Spa booking",
       icon: "iconEccobell-spa",
       href: "/",
+      active: false,
     },
     {
       name: "Book a taxi",
       icon: "iconEccobell-car",
       href: "/",
+      active: false,
     },
     {
       name: "Food delivery",
@@ -90,6 +93,11 @@ main {
 }
 header {
   min-height: 372px;
+}
+
+.not-active {
+  opacity: .7;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 340px) {
