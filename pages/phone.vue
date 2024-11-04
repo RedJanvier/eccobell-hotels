@@ -26,12 +26,12 @@
       <div class="list-container p-4">
         <ul class="list">
           <li v-for="link in links" :key="link.name">
-            <nuxt-link :to="link.href" class="flex items-center w-full gap-4">
+            <div @click="selectOption(link.value)" :class="['flex items-center w-full gap-4', { selected: selectedOption === link.value }]">
               <div class="icon-wrapper">
                 <span :class="link.icon"></span>
               </div>
               <span class="flex-1">{{ link.name }}</span>
-            </nuxt-link>
+            </div>
           </li>
         </ul>
       </div>
@@ -47,23 +47,28 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
+  const selectedOption = ref("reception");
   const links = ref([
     {
       name: "Reception",
       icon: "iconEccobell-person",
-      href: "/",
+      value: "reception",
     },
     {
       name: "Housekeeping",
       icon: "iconEccobell-bed",
-      href: "/",
+      value: "housekeeping",
     },
     {
       name: "In room dining",
       icon: "iconEccobell-food",
-      href: "/",
+      value: "dining",
     },
   ]);
+
+function selectOption(option: string) {
+  selectedOption.value = option;
+}
 </script>
 
 
@@ -96,5 +101,17 @@
 .cta-container .btn-primary {
   width: 100%;
   padding: 10px 0;
+}
+
+.list li {
+  cursor: pointer;
+}
+
+.list .selected {
+  color: var(--blue-secondary);
+}
+
+.list .selected .icon-wrapper {
+  background-color: #19759433;
 }
 </style>
